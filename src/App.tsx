@@ -1,13 +1,23 @@
 
 import './App.css'
-import Parent from './components/Parent'
+import Tabs, { Tab } from './Pages/Tabs'
 
 function App() {
 
   return (
-    <>
-      <Parent/>
-    </>
+    <div >
+      <Tabs>
+        <Tab label="Tab 1">
+        <div>These 1</div>
+      </Tab>
+      <Tab label="Tab 2">
+        <div>These 2</div>
+      </Tab>
+      <Tab label="Tab 3">
+        <div>These 3 </div>
+      </Tab>
+      </Tabs>
+    </div>
   )
 }
 

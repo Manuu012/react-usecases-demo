@@ -1,68 +1,120 @@
+/* Import Google Fonts - add these to your public/index.html or the top of your CSS file */
+/* Example for public/index.html <head> section:
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lora:wght@400;700&display=swap" rel="stylesheet">
+*/
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  /* Color Palette */
+  --primary-color: #007bff; /* A vibrant blue for active elements */
+  --secondary-color: #6c757d; /* A muted gray for inactive elements */
+  --accent-color: #28a745; /* A subtle green for highlights (optional) */
+  --background-light: #f8f9fa; /* Light background for the overall component */
+  --background-dark: #e9ecef; /* Slightly darker background for the content area */
+  --text-dark: #343a40; /* Dark text for readability */
+  --border-color: #dee2e6; /* Light gray for borders */
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+  /* Font Families */
+  --font-heading: 'Inter', sans-serif; /* Modern sans-serif for headings/tabs */
+  --font-body: 'Lora', serif; /* Elegant serif for content */
 }
 
 body {
-  margin: 0;
+  font-family: var(--font-body);
+  color: var(--text-dark);
+  line-height: 1.6;
+  margin: 20px;
+  background-color: #f0f2f5; /* A slightly off-white for the body background */
+}
+
+
+.tabs-header {
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
+  flex-wrap: wrap; /* Allows tabs to wrap on smaller screens */
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 20px;
+  background-color: var(--background-light);
   border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  overflow: hidden; /* Ensures rounded corners are applied */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); /* Subtle shadow for depth */
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+.tab-content {
+  padding: 20px;
+  background-color: var(--background-dark);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03); /* Lighter shadow for content */
+}
+
+/* Style for individual tab buttons */
+.tabs-header > div { /* Targeting direct children of .tabs-header */
+  padding: 12px 20px;
+  cursor: pointer;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--secondary-color);
+  transition: all 0.3s ease; /* Smooth transitions for hover and active states */
+  border-right: 1px solid var(--border-color); /* Separator between tabs */
+}
+
+.tabs-header > div:last-child {
+  border-right: none; /* No border on the last tab */
+}
+
+.tabs-header > div:hover {
+  background-color: #e2e6ea; /* Lighter hover background */
+  color: var(--primary-color);
+}
+
+.tabs-header > div.tab-active {
+  color: var(--primary-color);
+  background-color: #fff; /* White background for the active tab */
+  border-bottom: 3px solid var(--primary-color); /* Stronger indicator */
+  border-radius: 8px 8px 0 0; /* Rounded top corners, flat bottom */
+  position: relative;
+  top: 1px; /* Slightly lift the active tab to overlap the border */
+  z-index: 1; /* Ensure active tab is on top */
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05); /* Shadow for active tab */
+}
+
+.tabs-header > div.tab-active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px; /* Align with the bottom border of the .tabs-header */
+  height: 3px;
+  background-color: var(--primary-color);
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .tabs-header {
+    flex-direction: column; /* Stack tabs vertically on small screens */
+    border-bottom: none;
+    border-right: 1px solid var(--border-color); /* Add border to the right for vertical tabs */
   }
-  a:hover {
-    color: #747bff;
+
+  .tabs-header > div {
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
   }
-  button {
-    background-color: #f9f9f9;
+
+  .tabs-header > div:last-child {
+    border-bottom: none;
+  }
+
+  .tabs-header > div.tab-active {
+    border-bottom: none;
+    border-right: 3px solid var(--primary-color);
+    border-radius: 8px 0 0 8px; /* Rounded right corners for active vertical tab */
+    left: 1px;
+    top: auto;
+  }
+
+  .tabs-header > div.tab-active::after {
+    display: none; /* Hide the bottom border indicator for vertical tabs */
   }
 }
