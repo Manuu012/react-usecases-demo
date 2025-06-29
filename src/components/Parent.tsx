@@ -1,30 +1,32 @@
-import React, { useCallback, useState } from 'react';
+import  { useState } from 'react'
+
+
 
 function Parent() {
-    const [count, setCount] = useState<number>(0);
-    const [click, setClicks] = useState<number>(0);
 
-    const handleClicks = useCallback(() => {
-        setClicks((previous) => previous + 1);
-    }, []);
+    const [count,setCount] =useState(0);
 
-    return (
-        <div>
-            <button onClick={() => setCount((previous) => previous + 1)}>
-                Clicks on Parent {count}
-            </button>
-            <p>Clicks on Child {click}</p>
-            <Child OnChildClick={handleClicks} />
-        </div>
-    );
+    // const memorizeFunction = useMemo(() => slowFunction(count), [count]);
+    const [, setToggle] = useState(false);
+
+  return (
+    <div>
+        <p>Slowly Function Called {slowFunction(count)}</p>
+        <button onClick={() => setCount(prev => prev + 1)}>Increment Count</button>
+        <button onClick={() => setToggle(t => !t)}>Toggle Color</button>        
+    </div>
+  )
 }
 
-type ChildProps = {
-    OnChildClick: () => void;
-};
+export default Parent
 
-const Child: React.FC<ChildProps> = React.memo(({ OnChildClick }) => {
-    return <button onClick={OnChildClick}>Click on Child</button>;
-});
 
-export default Parent;
+
+function slowFunction(increasevalue:number):number{
+    console.log("Running slowly");
+   let result=0;
+    for(let i=0;i<1e8;i++){
+     result++;
+    }
+    return result+increasevalue;
+}
