@@ -1,4 +1,4 @@
-import  { useState } from 'react'
+import  { useMemo, useState } from 'react'
 
 
 
@@ -6,14 +6,14 @@ function Parent() {
 
     const [count,setCount] =useState(0);
 
-    // const memorizeFunction = useMemo(() => slowFunction(count), [count]);
+    const memorizeFunction  = useMemo(()=>{ return slowFunction(count)},[count]);
     const [, setToggle] = useState(false);
 
   return (
     <div>
-        <p>Slowly Function Called {slowFunction(count)}</p>
+        <p>Slowly Function Called {memorizeFunction}</p>
         <button onClick={() => setCount(prev => prev + 1)}>Increment Count</button>
-        <button onClick={() => setToggle(t => !t)}>Toggle Color</button>        
+        <button onClick={() => setToggle(t => !t)}>Toggle Color</button>
     </div>
   )
 }
