@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 function Parent() {
     const [count, setCount] = useState<number>(0);
     const [click, setClicks] = useState<number>(0);
 
-  
+    const handleClicks = useCallback(() => {
+        setClicks((previous) => previous + 1);
+    }, []);
 
     return (
         <div>
@@ -12,7 +14,7 @@ function Parent() {
                 Clicks on Parent {count}
             </button>
             <p>Clicks on Child {click}</p>
-            <Child OnChildClick={()=>{setClicks((previous) => previous + 1)}} />
+            <Child OnChildClick={handleClicks} />
         </div>
     );
 }
